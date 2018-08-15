@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Psychic Game</title>
+</head>
+
+<body>
+    <p>Try to guess what letter I'm thinking of.</p>
+    <p>You chose:
+        <span id="letterPick"></span>
+    </p>
+    <p>Wins:
+        <span id="wins">0</span>
+    </p>
+    <p>Losses:
+        <span id="losses">0</span>
+    </p>
+    <p>Guesses left:
+        <span id="guessCounter">9</span>
+    </p>
+    <p>Your guesses so far:
+        <span id="guesses"></span>
+    </p>
+
+
+    <script>
+        var letterChoices = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
+        var wins = 0;
+        var losses = 0;
+        var Counter = 9;
+        var guessTries = [];
+
+        //when a key is pressed
+        document.onkeyup = function (event) {
+            //sets letter to a random letter from letterChoices array
+            var letter = letterChoices[Math.floor(Math.random() * letterChoices.length)];
+            //userGuess equals the key pressed and appears in HTML
+            var userGuess = event.key;
+            letterPick.textContent = userGuess;
+
+            //This function adds each key pressed to the guessTries array
+            function guessList() {
+                guessTries.push(userGuess);
+                var printThis = "";
+                for (var i = 0; i < guessTries.length; i++) {
+                    printThis += guessTries[i] + ", ";
+                }
+                return printThis;
+            };
+
+            //inserts the result of the above function into the HTML for list of wrong guesses
+            document.querySelector("#guesses").innerHTML = guessList();
+
+            // if guess is right, wins goes up and is shown in HTML, the counter is reset, and the guessTries array is emptied
+            if (userGuess === letter) {
+                wins++;
+                document.querySelector("#wins").innerHTML = wins;
+                Counter = 9;
+                guessCounter.textContent = Counter;
+                document.querySelector("#guesses").innerHTML = "";
+                guessTries = [];
+                //if guess is wrong but before the end, the counter reduces to 0
+            } else if (userGuess !== letter && Counter > 0) {
+                Counter--;
+                guessCounter.textContent = Counter;
+                //if counter reaches 0, losses goes up and is shown in HTML, the counter is reset, and the guessTries array is emptied
+            } else if (Counter === 0) {
+                losses++;
+                document.querySelector("#losses").innerHTML = losses;
+                Counter = 9;
+                guessCounter.textContent = Counter;
+                document.querySelector("#guesses").innerHTML = "";
+                guessTries = [];
+            };
+        };
+
+    </script>
+
+</body>
+
+</html>
