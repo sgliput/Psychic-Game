@@ -1,1 +1,3 @@
 # Psychic-Game
+
+This is a basic letter-guessing game. Type letters, which each show up after "You chose". If you type the right letter, the Wins counter will go up. If you type the wrong letter, your guesses will be added to a list and the "Guesses left" counter will go down each time. If the "Guesses left" counter reaches 0, the Losses counter will go up by one. Whether Wins or Losses goes up, the "Guesses left" counter will reset to 9, and the guess list will be emptied.
